@@ -8,6 +8,7 @@ import {
   faPhoneAlt,
   faEnvelope,
   faMapMarkedAlt,
+  faLock,
 } from "@fortawesome/free-solid-svg-icons";
 import { library } from "@fortawesome/fontawesome-svg-core";
 
@@ -21,7 +22,8 @@ const Icons = () => {
     faUserCircle,
     faPhoneAlt,
     faEnvelope,
-    faMapMarkedAlt
+    faMapMarkedAlt,
+    faLock
   );
 };
 

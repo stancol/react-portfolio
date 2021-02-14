@@ -28,8 +28,23 @@ class Blog extends Component {
     this.handleDeleteClick = this.handleDeleteClick.bind(this);
   }
 
-  handleDeleteClick() {
-    console.log("deleted");
+  handleDeleteClick(blog) {
+    axios
+      .delete(
+        `https://api.devcamp.space/portfolio/portfolio_blogs/${blog.id}`,
+        { withCredentials: true }
+      )
+      .then((response) => {
+        this.setState({
+          blogItems: this.state.blogItems.filter((blogItem) => {
+            return blog.id !== blogItem.id;
+          }),
+        });
+        return response.data;
+      })
+      .catch((error) => {
+        console.log("delete blog error", error);
+      });
   }
 
   handleSuccessfulNewBlogSubmission(blog) {
@@ -105,12 +120,14 @@ class Blog extends Component {
       if (this.props.loggedInStatus === "LOGGED_IN") {
         return (
           <div key={blogItem.id} className="admin-blog-wrapper">
-            <BlogItem key={blogItem.id} blogItem={blogItem} />
-            <a onClick={this.handleDeleteClick}>Delete</a>
+            <BlogItem blogItem={blogItem} />
+            <a onClick={() => this.handleDeleteClick(blogItem)}>
+              <FontAwesomeIcon icon="trash" />
+            </a>
           </div>
         );
       } else {
-        return;
+        return <blogItem key={blogItem.id} blogItem={blogItem} />;
       }
     });
 
