@@ -25,6 +25,11 @@ class Blog extends Component {
     this.handleSuccessfulNewBlogSubmission = this.handleSuccessfulNewBlogSubmission.bind(
       this
     );
+    this.handleDeleteClick = this.handleDeleteClick.bind(this);
+  }
+
+  handleDeleteClick() {
+    console.log("deleted");
   }
 
   handleSuccessfulNewBlogSubmission(blog) {
@@ -97,7 +102,16 @@ class Blog extends Component {
 
   render() {
     const blogRecords = this.state.blogItems.map((blogItem) => {
-      return <BlogItem key={blogItem.id} blogItem={blogItem} />;
+      if (this.props.loggedInStatus === "LOGGED_IN") {
+        return (
+          <div key={blogItem.id} className="admin-blog-wrapper">
+            <BlogItem key={blogItem.id} blogItem={blogItem} />
+            <a onClick={this.handleDeleteClick}>Delete</a>
+          </div>
+        );
+      } else {
+        return;
+      }
     });
 
     return (

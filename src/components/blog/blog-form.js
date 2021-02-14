@@ -60,8 +60,8 @@ export default class BlogForm extends Component {
 
   componentConfig() {
     return {
-      iconFileTypes: [".jpg", ".png"],
-      showFileTypeIcon: true,
+      iconFiletypes: [".jpg", ".png"],
+      showFiletypeIcon: true,
       postUrl: "https://httpbin.org/post",
     };
   }
@@ -120,17 +120,13 @@ export default class BlogForm extends Component {
         });
 
         if (this.props.editMode) {
-          // UPDATE BLOG DETAIL
+          // Update blog detail
           this.props.handleUpdateFormSubmission(response.data.portfolio_blog);
         } else {
           this.props.handleSuccessfullFormSubmission(
             response.data.portfolio_blog
           );
         }
-
-        this.props.handleSuccessfullFormSubmission(
-          response.data.portfolio_blog
-        );
       })
       .catch((error) => {
         console.log("handleSubmit for blog error", error);

@@ -5,7 +5,7 @@ import ReactHtmlParser from "react-html-parser";
 import BlogForm from "../blog/blog-form";
 import BlogFeaturedImage from "../blog/blog-featured-image";
 
-export default class BlogDeatil extends Component {
+export default class BlogDetail extends Component {
   constructor(props) {
     super(props);
 
@@ -22,7 +22,7 @@ export default class BlogDeatil extends Component {
     );
   }
 
-  handleUpdateFormSubmission() {
+  handleUpdateFormSubmission(blog) {
     this.setState({
       blogItem: blog,
       editMode: false,
@@ -38,14 +38,15 @@ export default class BlogDeatil extends Component {
   }
 
   handleEditClick() {
-    console.log("handle edit clicked");
-    this.setState({ editMode: true });
+    if (this.props.loggedInstatus === "LOGGED_IN") {
+      this.setState({ editMode: true });
+    }
   }
 
   getBlogItem() {
     axios
       .get(
-        `https://stanleycolin.devcamp.space/portfolio/portfolio_blogs/${this.state.currentId}`
+        `https://jordan.devcamp.space/portfolio/portfolio_blogs/${this.state.currentId}`
       )
       .then((response) => {
         this.setState({
@@ -60,6 +61,7 @@ export default class BlogDeatil extends Component {
   componentDidMount() {
     this.getBlogItem();
   }
+
   render() {
     const {
       title,
@@ -90,6 +92,7 @@ export default class BlogDeatil extends Component {
         );
       }
     };
+
     return <div className="blog-container">{contentManager()}</div>;
   }
 }
